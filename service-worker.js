@@ -1,99 +1,60 @@
-const CACHE_NAME = "bizim-hikayemiz-v1";
-
+const CACHE_NAME = "bizim-hikayemiz-standalone-v1";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./manifest.json",
-  "./favicon.svg"
+  "./manifest.json"
 ];
 
-self.addEventListener("install", function (event) {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then(function (cache) {
-        return cache.addAll(APP_SHELL);
-      })
-      .then(function () {
-        return self.skipWaiting();
-      })
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener("activate", function (event) {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches
-      .keys()
-      .then(function (cacheNames) {
-        return Promise.all(
-          cacheNames
-            .filter(function (cacheName) {
-              return cacheName !== CACHE_NAME;
-            })
-            .map(function (cacheName) {
-              return caches.delete(cacheName);
-            })
-        );
-      })
-      .then(function () {
-        return self.clients.claim();
-      })
+    caches.keys()
+      .then((keys) => Promise.all(
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener("fetch", function (event) {
+self.addEventListener("fetch", (event) => {
   const request = event.request;
-  const requestUrl = new URL(request.url);
+  const url = new URL(request.url);
 
-  // Sadece aynı domaindeki GET isteklerini önbellekle
-  if (
-    request.method !== "GET" ||
-    requestUrl.origin !== self.location.origin
-  ) {
+  if (request.method !== "GET" || url.origin !== self.location.origin) {
     return;
   }
 
-  // Sayfa internete erişemezse index.html dosyasını göster
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
-        .then(function (response) {
-          const responseCopy = response.clone();
-
-          caches.open(CACHE_NAME).then(function (cache) {
-            cache.put(request, responseCopy);
-          });
-
+        .then((response) => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(function () {
-          return caches
-            .match("./index.html")
-            .then(function (cachedPage) {
-              return cachedPage || caches.match("./");
-            });
-        })
+        .catch(() => caches.match("./index.html"))
     );
-
     return;
   }
 
-  // Önce cache kontrol edilir, yoksa internetten alınır
   event.respondWith(
-    caches.match(request).then(function (cachedResponse) {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
 
-      return fetch(request).then(function (response) {
+      return fetch(request).then((response) => {
         if (response.ok) {
-          const responseCopy = response.clone();
-
-          caches.open(CACHE_NAME).then(function (cache) {
-            cache.put(request, responseCopy);
-          });
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
         }
-
         return response;
       });
     })
