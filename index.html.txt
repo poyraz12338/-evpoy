@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover"
+    />
+
+    <meta name="theme-color" content="#7f3448" />
+
+    <!-- Android ve iPhone uygulama modu -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- iPhone durum çubuğu görünümü -->
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <meta name="apple-mobile-web-app-title" content="Bizim Hikâyemiz" />
+
+    <title>Bizim Hikâyemiz</title>
+
+    <meta
+      name="description"
+      content="İkinizin hikâyesinden küçük bir sayfa."
+    />
+
+    <!-- Özel bir sürpriz sayfası olduğu için arama motorlarına kapalı -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- PWA manifest dosyası -->
+    <link rel="manifest" href="./manifest.json" />
+
+    <!-- iPhone ana ekran ikonu -->
+    <link rel="apple-touch-icon" href="./favicon.svg" />
+
+    <!-- Sosyal medya önizleme bilgileri -->
+    <meta property="og:title" content="Bizim Hikâyemiz" />
+    <meta
+      property="og:description"
+      content="İkinizin hikâyesinden küçük bir sayfa."
+    />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bizim Hikâyemiz" />
+    <meta
+      name="twitter:description"
+      content="İkinizin hikâyesinden küçük bir sayfa."
+    />
+
+    <!-- Tarayıcı sekme ikonu -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- Mevcut uygulamanın ana JavaScript dosyası -->
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Service Worker kaydı -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker
+            .register("./service-worker.js", {
+              scope: "./",
+            })
+            .catch(function (error) {
+              console.warn(
+                "Çevrimdışı destek başlatılamadı:",
+                error
+              );
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

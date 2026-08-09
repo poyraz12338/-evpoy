@@ -1,0 +1,21 @@
+{
+  "name": "Bizim Hikâyemiz",
+  "short_name": "Bizim Hikâyemiz",
+  "description": "İkinizin hikâyesinden küçük bir sayfa.",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6e8d5",
+  "theme_color": "#7f3448",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
