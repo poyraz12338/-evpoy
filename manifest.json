@@ -1,21 +1,19 @@
 {
-  "name": "Bizim Hikâyemiz",
-  "short_name": "Bizim Hikâyemiz",
-  "description": "İkinizin hikâyesinden küçük bir sayfa.",
-  "lang": "tr",
-  "dir": "ltr",
-  "start_url": "./",
+  "name": "Aşk Hikayemiz",
+  "short_name": "Aşk Hikayemiz",
+  "description": "Anılarımız, fotoğraflarımız ve doğum günü sürprizi",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f7ead7",
-  "theme_color": "#7d3148",
+  "background_color": "#faf5f0",
+  "theme_color": "#5d1128",
   "icons": [
     {
-      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='42' fill='%237d3148'/%3E%3Cpath d='M90 137C84 131 44 102 44 70c0-15 11-26 25-26 9 0 16 5 21 12 5-7 12-12 21-12 14 0 25 11 25 26 0 32-40 61-46 67Z' fill='%23efc567'/%3E%3C/svg%3E",
-      "sizes": "180x180",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Crect width='512' height='512' rx='96' fill='%235d1128'/%3E%3Cpath d='M256 400 C 200 350 120 290 120 210 C 120 160 160 130 205 130 C 232 130 250 145 256 160 C 262 145 280 130 307 130 C 352 130 392 160 392 210 C 392 290 312 350 256 400 Z' fill='%23f4d7a1'/%3E%3Cpath d='M186 118 L 214 88 L 256 112 L 298 88 L 326 118 L 316 132 L 196 132 Z' fill='%23f4d7a1'/%3E%3C/svg%3E",
+      "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
