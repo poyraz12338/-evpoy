@@ -38,6 +38,15 @@
       opacity: 0; pointer-events: none; z-index: 0;
       animation: yuksel linear infinite;
     }
+    /* Arka plan çiçekleri */
+    .cicek {
+      position: fixed; color: var(--bordo); opacity: .07; pointer-events: none; z-index: 0;
+      animation: salin 6s ease-in-out infinite alternate;
+    }
+    @keyframes salin {
+      from { transform: rotate(-8deg); }
+      to { transform: rotate(8deg); }
+    }
     @keyframes yuksel {
       0% { transform: translateY(0) rotate(0deg); opacity: 0; }
       10% { opacity: .12; }
@@ -302,6 +311,22 @@
       k.style.animationDelay = (-Math.random() * 20) + 's';
       document.body.appendChild(k);
     }
+
+    // ---- Arka plan çiçekleri ----
+    var cicekler = [
+      { t: 8, l: 6, s: 34 }, { t: 18, l: 86, s: 26 }, { t: 42, l: 8, s: 22 },
+      { t: 56, l: 88, s: 36 }, { t: 74, l: 14, s: 24 }, { t: 86, l: 78, s: 30 }
+    ];
+    cicekler.forEach(function (f, i) {
+      var d = document.createElement('div');
+      d.className = 'cicek';
+      d.textContent = i % 2 ? '\u2740' : '\u273F'; // ❀ / ✿
+      d.style.top = f.t + 'vh';
+      d.style.left = f.l + 'vw';
+      d.style.fontSize = f.s + 'px';
+      d.style.animationDelay = (-Math.random() * 6) + 's';
+      document.body.appendChild(d);
+    });
 
     // ---- Sürpriz: taç butonu ----
     document.getElementById('tac').addEventListener('click', function () {
